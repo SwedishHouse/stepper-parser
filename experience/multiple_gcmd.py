@@ -1,26 +1,26 @@
 import re
 
 
-class Gcode:
+# class Gcode:
+#
+#     def __init__(self, name: str, params: dict[str, float] | None) -> None:
+#         self.name = name
+#         self.params = params
+#
+#     @property
+#     def get_param(self) -> str:
+#         if self.params:
+#             return ' '.join(key + str(val) for key, val in self.params.items())
+#         return ''
+#
+#     @property
+#     def get_name(self) -> str:
+#         return self.name
+#
+#     def get_cmd(self):
+#         return self.name + ' ' * bool(self.get_param) + self.get_param
 
-    def __init__(self, name: str, params: dict[str, float] | None) -> None:
-        self.name = name
-        self.params = params
-
-    @property
-    def get_param(self) -> str:
-        if self.params:
-            return ' '.join(key + str(val) for key, val in self.params.items())
-        return ''
-
-    @property
-    def get_name(self) -> str:
-        return self.name
-
-    def get_cmd(self):
-        return self.name + ' ' * bool(self.get_param) + self.get_param
-
-class GCodeParsed:
+class GCode:
 
     def __init__(self, line: str) -> None:
         gcode = line.split()
@@ -37,10 +37,22 @@ class GCodeParsed:
             match = re.match(r"([A-Z]+)([-+]?\d+)", item)
             if match:
                 key = match.group(1)
-                value = int(match.group(2))
+                value = float(match.group(2))
                 result[key] = value
         return result
 
+    def get_cmd(self):
+        return self.cmd + ' ' * bool(self.get_param) + self.get_param
+
+    @property
+    def get_param(self) -> str:
+        if self.params:
+            return ' '.join(key + str(val) for key, val in self.params.items())
+        return ''
+
+    @property
+    def get_name(self) -> str:
+        return self.cmd
 
 class GCodeSplitter:
 
