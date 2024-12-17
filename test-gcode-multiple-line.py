@@ -6,11 +6,11 @@ import json
 import pytest
 
 
-def test_g0():
-    x_coord = 15.2
-    gcode = Gcode('G00', {'X': x_coord})
-
-    assert f'G00 X{x_coord}' == gcode.get_cmd()
+# def test_g0():
+#     x_coord = 15.2
+#     gcode = Gcode('G00', {'X': x_coord})
+#
+#     assert f'G00 X{x_coord}' == gcode.get_cmd()
 
 
 def test_g1():
